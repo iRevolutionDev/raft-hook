@@ -24,6 +24,7 @@ namespace RaftHook.UI.Views.Players
             if (players.Count == 0)
             {
                 GUILayout.Label("No players found");
+                base.Render(id);
                 return;
             }
 
