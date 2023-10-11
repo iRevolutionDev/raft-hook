@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using RaftHook.Utilities;
+using Steamworks;
 using UnityEngine;
 
 namespace RaftHook.Features.Features.Visuals
@@ -12,6 +13,8 @@ namespace RaftHook.Features.Features.Visuals
         private static Camera _reiCamera;
 
         private static bool _isInGame = LoadSceneManager.IsGameSceneLoaded;
+
+        private static Dictionary<CSteamID, Network_Player> _players = new Dictionary<CSteamID, Network_Player>();
 
         private static List<Landmark> _landmarks = new List<Landmark>();
 
@@ -89,6 +92,7 @@ namespace RaftHook.Features.Features.Visuals
 
             _reiTimer = 0f;
 
+            if (RaftSettings.Players) _players = RaftClient.Players;
             if (RaftSettings.Landmark) _landmarks = FindObjectsOfType<Landmark>().ToList();
             if (RaftSettings.TradingPost) _tradingPosts = FindObjectsOfType<TradingPost>().ToList();
             if (RaftSettings.Treasures) _treasurePoints = FindObjectsOfType<TreasurePoint>().ToList();
@@ -104,6 +108,43 @@ namespace RaftHook.Features.Features.Visuals
             if (!_isInGame) return;
             if (Event.current.type != EventType.Repaint) return;
             if (!RaftSettings.EnableEsp) return;
+
+            if (RaftSettings.Players && _players.Count > 0)
+            {
+                var players = _players.Where(x => x.Value != null && x.Value.gameObject != null)
+                    .Where(x => !x.Value.IsLocalPlayer)
+                    .Where(x => x.Value.gameObject.activeSelf).ToList();
+
+                foreach (var player in players)
+                {
+                    var position = player.Value.transform.position;
+                    var vector = _reiCamera.WorldToScreenPoint(position);
+                    var num = Vector3.Distance(
+                        SingletonGeneric<Network_Entity>.Singleton.Network.GetLocalPlayer().transform.position,
+                        position);
+
+                    if (!Render.IsOnScreen(vector) || !(num < RaftSettings.FPlayers)) continue;
+
+                    Render.DrawString(new Vector3(vector.x, Screen.height - vector.y),
+                        player.Value.name, Color.white, true, 12, FontStyle.Normal);
+                    Render.DrawString(new Vector3(vector.x, Screen.height - vector.y + 12f),
+                        Mathf.Round(num) + "m", Color.yellow, true, 12, FontStyle.Normal);
+
+                    if (!RaftSettings.PlayersBox) continue;
+
+                    var head = player.Value.PlayerHeadBone.position;
+                    var headVector = _reiCamera.WorldToScreenPoint(head);
+
+                    var foot = player.Value.FeetPosition;
+                    var footVector = _reiCamera.WorldToScreenPoint(foot);
+
+                    var headToFoot = footVector.y - headVector.y;
+                    var headToFootHalf = headToFoot / 2f;
+
+                    Render.DrawBox(new Vector2(headVector.x, Screen.height - headVector.y),
+                        new Vector2(headToFootHalf, headToFoot), 1f, Color.red, false);
+                }
+            }
 
             if (RaftSettings.Landmark && _landmarks.Count > 0)
                 foreach (var landmark in _landmarks)

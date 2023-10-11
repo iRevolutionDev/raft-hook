@@ -19,6 +19,8 @@
 
         // ESP
         public static bool EnableEsp;
+        public static bool Players;
+        public static bool PlayersBox;
         public static bool Npc;
         public static bool Landmark;
         public static bool TradingPost;
@@ -41,5 +43,6 @@
         public static float FItemQuestItem = 100f;
         public static float FHostileAnimal = 150f;
         public static float FNpc = 100f;
+        public static float FPlayers = 100f;
     }
 }

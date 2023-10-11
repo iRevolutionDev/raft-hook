@@ -13,6 +13,12 @@ namespace RaftHook.UI.Views
         protected override void Render(int id)
         {
             RaftSettings.EnableEsp = GUILayout.Toggle(RaftSettings.EnableEsp, "Enable ESP");
+            RaftSettings.Players = GUILayout.Toggle(RaftSettings.Players,
+                "Players [" + Mathf.Round(RaftSettings.FPlayers) + "m]");
+            RaftSettings.PlayersBox = GUILayout.Toggle(RaftSettings.PlayersBox, 
+                "Players Box");
+            RaftSettings.FPlayers =
+                Mathf.Round(GUILayout.HorizontalSlider(RaftSettings.FPlayers, 1f, 500f) * 500f) / 500f;
             RaftSettings.Landmark = GUILayout.Toggle(RaftSettings.Landmark,
                 "Landmark [" + Mathf.Round(RaftSettings.FLandmark) + "m]");
             RaftSettings.FLandmark =
