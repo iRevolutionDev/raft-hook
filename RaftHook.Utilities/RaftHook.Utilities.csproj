@@ -47,6 +47,9 @@
         <Reference Include="com.unity.multiplayer-hlapi.Runtime">
             <HintPath>..\..\..\..\..\..\Games\Raft\Raft_Data\Managed\com.unity.multiplayer-hlapi.Runtime.dll</HintPath>
         </Reference>
+        <Reference Include="MelonLoader">
+            <HintPath>..\..\..\..\..\..\Games\Raft\MelonLoader\net35\MelonLoader.dll</HintPath>
+        </Reference>
         <Reference Include="MeshExtension">
             <HintPath>..\..\..\..\..\..\Games\Raft\Raft_Data\Managed\MeshExtension.dll</HintPath>
         </Reference>
@@ -314,11 +317,13 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Models\RNotificationInfo.cs"/>
         <Compile Include="MouseUtil.cs"/>
+        <Compile Include="PrivateValueAccessor.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs"/>
         <Compile Include="RaftClient.cs"/>
         <Compile Include="RaftSettings.cs"/>
-        <Compile Include="Render.cs"/>
+        <Compile Include="Rendering\Render.cs"/>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
