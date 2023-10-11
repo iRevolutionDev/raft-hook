@@ -36,7 +36,7 @@ namespace RaftHook.UI
 
         private static void ToggleMenu()
         {
-            //if (!_isInLobby && !_isInGame) return;
+            if (!_isInLobby && !_isInGame) return;
 
             if (!Input.GetKeyDown(KeyCode.F4)) return;
 
