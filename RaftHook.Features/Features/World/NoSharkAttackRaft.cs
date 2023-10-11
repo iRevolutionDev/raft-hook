@@ -6,7 +6,7 @@ namespace RaftHook.Features.Features.World
     [HarmonyPatch(typeof(Shark), "AttackRaftUpdate")]
     internal class NoSharkAttackRaft
     {
-        private static void Prefix(Shark __instance)
+        private static void Postfix(Shark __instance)
         {
             if (__instance.state != SharkState.AttackRaft) return;
 
