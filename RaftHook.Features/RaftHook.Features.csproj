@@ -33,6 +33,9 @@
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
+        <Reference Include="0Harmony">
+            <HintPath>..\..\..\..\..\..\Games\Raft\MelonLoader\net35\0Harmony.dll</HintPath>
+        </Reference>
         <Reference Include="Assembly-CSharp">
             <HintPath>..\..\..\..\..\..\Games\Raft\Raft_Data\Managed\Assembly-CSharp.dll</HintPath>
         </Reference>
@@ -44,6 +47,9 @@
         </Reference>
         <Reference Include="com.unity.multiplayer-hlapi.Runtime">
             <HintPath>..\..\..\..\..\..\Games\Raft\Raft_Data\Managed\com.unity.multiplayer-hlapi.Runtime.dll</HintPath>
+        </Reference>
+        <Reference Include="MelonLoader">
+            <HintPath>..\..\..\..\..\..\Games\Raft\MelonLoader\net35\MelonLoader.dll</HintPath>
         </Reference>
         <Reference Include="MeshExtension">
             <HintPath>..\..\..\..\..\..\Games\Raft\Raft_Data\Managed\MeshExtension.dll</HintPath>
@@ -312,20 +318,22 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="FeaturesPatcher.cs"/>
         <Compile Include="Features\Boat\ForceAnchor.cs"/>
         <Compile Include="Features\Miscellaneous\FlyMode.cs"/>
-        <Compile Include="Features\Miscellaneous\KillEntities.cs" />
+        <Compile Include="Features\Miscellaneous\KillEntities.cs"/>
         <Compile Include="Features\Self\Armor.cs"/>
+        <Compile Include="Features\Self\NoFallDamage.cs"/>
         <Compile Include="Features\Self\NoHunger.cs"/>
         <Compile Include="Features\Self\NoThirst.cs"/>
         <Compile Include="Features\Self\UnlimitedHealth.cs"/>
         <Compile Include="Features\Self\Unlockables.cs"/>
-        <Compile Include="Features\Visuals\Esp.cs" />
+        <Compile Include="Features\Visuals\Esp.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs"/>
     </ItemGroup>
     <ItemGroup>
         <Folder Include="Controllers\"/>
-        <Folder Include="Features\Teleports\" />
+        <Folder Include="Features\Teleports\"/>
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\RaftHook.Utilities\RaftHook.Utilities.csproj">

@@ -1,4 +1,5 @@
 ﻿using MelonLoader;
+using RaftHook.Features;
 using RaftHook.Features.Features.Miscellaneous;
 using RaftHook.Features.Features.Self;
 using RaftHook.Features.Features.Visuals;
@@ -57,12 +58,15 @@ namespace RaftHook
                 if (Input.GetKeyDown(KeyCode.Delete)) Terminate();
             });
 
+            FeaturesPatcher.Patch();
+
             MelonLogger.Msg("Raft Hook loaded!");
         }
 
         public override void OnDeinitializeMelon()
         {
             Terminate();
+            FeaturesPatcher.Unpatch();
             MelonLogger.Msg("Raft Hook unloaded!");
         }
     }

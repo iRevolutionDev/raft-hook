@@ -5,14 +5,15 @@
         public static bool ShowMenu = false;
 
         // Self
-        public static bool Fly = false;
+        public static bool Fly;
+        public static bool UnlimitedHealth;
+        public static bool NoThirst;
+        public static bool NoHunger;
+        public static bool NoFallDamage;
 
         // ESP
         public static bool EnableEsp;
         public static bool Npc;
-        public static bool UnlimitedHealth;
-        public static bool NoThirst;
-        public static bool NoHunger;
         public static bool Landmark;
         public static bool TradingPost;
         public static bool Treasures;

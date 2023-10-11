@@ -68,6 +68,7 @@ namespace RaftHook.UI
                     RaftSettings.UnlimitedHealth = GUILayout.Toggle(RaftSettings.UnlimitedHealth, "Unlimited Health");
                     RaftSettings.NoThirst = GUILayout.Toggle(RaftSettings.NoThirst, "No Thirst");
                     RaftSettings.NoHunger = GUILayout.Toggle(RaftSettings.NoHunger, "No Hunger");
+                    RaftSettings.NoFallDamage = GUILayout.Toggle(RaftSettings.NoFallDamage, "No Fall Damage");
                     if (GUILayout.Button("Give Armor Set")) Armor.GiveArmor();
                     break;
                 case 2:
