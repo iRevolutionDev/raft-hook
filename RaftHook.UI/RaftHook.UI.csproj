@@ -326,6 +326,7 @@
         <Compile Include="Views\Players\SelectedPlayerView.cs"/>
         <Compile Include="Views\PlayerView.cs"/>
         <Compile Include="Views\VisualsView.cs"/>
+        <Compile Include="Views\WorldView.cs"/>
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\RaftHook.Features\RaftHook.Features.csproj">

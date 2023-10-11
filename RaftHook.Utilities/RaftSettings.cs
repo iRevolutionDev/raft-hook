@@ -11,6 +11,12 @@
         public static bool NoHunger;
         public static bool NoFallDamage;
 
+        //World
+        public static bool NoShark;
+        public static bool NoSharkAttack;
+        public static bool NoSharkAttackPlayer;
+        public static bool NoSharkAttackRaft;
+
         // ESP
         public static bool EnableEsp;
         public static bool Npc;

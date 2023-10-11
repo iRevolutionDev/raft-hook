@@ -330,6 +330,9 @@
         <Compile Include="Features\Self\UnlimitedHealth.cs"/>
         <Compile Include="Features\Self\Unlockables.cs"/>
         <Compile Include="Features\Visuals\Esp.cs"/>
+        <Compile Include="Features\World\NoShark.cs"/>
+        <Compile Include="Features\World\NoSharkAttackPlayer.cs"/>
+        <Compile Include="Features\World\NoSharkAttackRaft.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs"/>
     </ItemGroup>
     <ItemGroup>

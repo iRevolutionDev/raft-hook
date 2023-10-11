@@ -12,6 +12,7 @@ namespace RaftHook.UI.Views
         private readonly PlayersView _playersView = new PlayersView();
         private readonly PlayerView _playerView = new PlayerView();
         private readonly VisualsView _visualsView = new VisualsView();
+        private readonly WorldView _worldView = new WorldView();
 
         public MainWindowView() : base("Raft Hook", true)
         {
@@ -23,6 +24,7 @@ namespace RaftHook.UI.Views
             AddChild(_visualsView);
             AddChild(_miscellaneousView);
             AddChild(_playersView);
+            AddChild(_worldView);
         }
 
         protected override void Render(int id)
@@ -34,8 +36,9 @@ namespace RaftHook.UI.Views
             GUILayout.Label("Delete to Unhook the Cheat", _labelStyle);
             if (GUILayout.Button("Player")) _playerView.ToggleVisible();
             if (GUILayout.Button("Visual")) _visualsView.ToggleVisible();
-            if (GUILayout.Button("Miscellaneous")) _miscellaneousView.ToggleVisible();
             if (GUILayout.Button("Players")) _playersView.ToggleVisible();
+            if (GUILayout.Button("World")) _worldView.ToggleVisible();
+            if (GUILayout.Button("Miscellaneous")) _miscellaneousView.ToggleVisible();
 
             base.Render(id);
         }
