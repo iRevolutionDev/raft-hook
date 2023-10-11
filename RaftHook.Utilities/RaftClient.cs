@@ -1,11 +1,16 @@
-﻿using RaftHook.Utilities.Models;
+﻿using System.Collections.Generic;
+using RaftHook.Utilities.Models;
+using Steamworks;
 using UnityEngine;
 
 namespace RaftHook.Utilities
 {
     public static class RaftClient
     {
+        private static readonly Raft_Network Network = SingletonGeneric<Raft_Network>.Singleton;
+        public static Dictionary<CSteamID, Network_Player> Players => GetPlayers();
         public static Network_Player LocalPlayer => SingletonGeneric<Network_Entity>.Singleton.Network.GetLocalPlayer();
+        public static Raft Raft => SingletonGeneric<Raft>.Singleton;
         public static bool IsInLobby => LoadSceneManager.IsLoadingLobbyScene;
         public static bool IsInGame => LoadSceneManager.IsGameSceneLoaded;
         public static Sprite CheatLogo => GetItemSprite("Placeable_Anchor_Stationary_Advanced");
@@ -31,6 +36,11 @@ namespace RaftHook.Utilities
         {
             var item = ItemManager.GetItemByName(itemName);
             return item.settings_Inventory?.Sprite;
+        }
+
+        private static Dictionary<CSteamID, Network_Player> GetPlayers()
+        {
+            return Network.remoteUsers;
         }
     }
 }
