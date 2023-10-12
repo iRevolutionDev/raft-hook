@@ -18,6 +18,8 @@ namespace RaftHook.UI.Views
             RaftSettings.NoThirst = GUILayout.Toggle(RaftSettings.NoThirst, "No Thirst");
             RaftSettings.NoHunger = GUILayout.Toggle(RaftSettings.NoHunger, "No Hunger");
             RaftSettings.NoFallDamage = GUILayout.Toggle(RaftSettings.NoFallDamage, "No Fall Damage");
+            RaftSettings.NoBuildRestrictions =
+                GUILayout.Toggle(RaftSettings.NoBuildRestrictions, "No Build Restrictions");
             if (GUILayout.Button("Heal")) Stats.Heal();
             if (GUILayout.Button("Feed")) Stats.Feed();
             if (GUILayout.Button("Quench")) Stats.Quench();
@@ -28,6 +30,8 @@ namespace RaftHook.UI.Views
                 var bed = BedManager.FindClosestBedToPlayer(localPlayer);
                 localPlayer.PlayerScript.StartRespawn(bed, false);
             }
+
+            if (GUILayout.Button("Fill hand item durability")) Durability.SetDurabilityToMax();
 
             base.Render(id);
         }

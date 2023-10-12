@@ -1,5 +1,6 @@
 ﻿using RaftHook.UI.Models;
 using RaftHook.Utilities;
+using Steamworks;
 using UnityEngine;
 
 namespace RaftHook.UI.Views.Players
@@ -35,7 +36,24 @@ namespace RaftHook.UI.Views.Players
                 $"Oxygen: {CurrentSelectedPlayer.Stats.stat_oxygen.Value}/{CurrentSelectedPlayer.Stats.stat_oxygen.Max}");
             GUILayout.Label($"Is Dead: {CurrentSelectedPlayer.Stats.IsDead}");
 
-            if (GUILayout.Button("Kill")) CurrentSelectedPlayer.Stats.stat_health.Value = 0;
+            if (GUILayout.Button("Kill"))
+            {
+                var messageNetworkBehaviour =
+                    new Message_NetworkBehaviour(Messages.PlayerKilled, CurrentSelectedPlayer);
+
+                if (!Raft_Network.IsHost)
+                {
+                    CurrentSelectedPlayer.SendP2P(messageNetworkBehaviour, EP2PSend.k_EP2PSendReliable,
+                        NetworkChannel.Channel_Game);
+                }
+                else
+                {
+                    CurrentSelectedPlayer.Network.RPC(messageNetworkBehaviour, Target.Other,
+                        EP2PSend.k_EP2PSendReliable,
+                        NetworkChannel.Channel_Game);
+                    CurrentSelectedPlayer.PlayerScript.Kill();
+                }
+            }
 
             if (GUILayout.Button("Heal"))
                 CurrentSelectedPlayer.Stats.stat_health.Value = CurrentSelectedPlayer.Stats.stat_health.Max;
@@ -68,9 +86,20 @@ namespace RaftHook.UI.Views.Players
             if (GUILayout.Button("Teleport to Player"))
                 RaftClient.LocalPlayer.transform.position = CurrentSelectedPlayer.transform.position;
             if (GUILayout.Button("Teleport Player to You"))
+            {
+                CurrentSelectedPlayer.transform.SetParentSafe(CurrentSelectedPlayer.transform.ParentedToRaft()
+                    ? SingletonGeneric<GameManager>.Singleton.lockedPivot
+                    : null);
+                CurrentSelectedPlayer.PersonController.SwitchControllerType(ControllerType.Ground);
                 CurrentSelectedPlayer.transform.position = RaftClient.LocalPlayer.transform.position;
+            }
+
             if (GUILayout.Button("Teleport to Raft"))
+            {
+                CurrentSelectedPlayer.transform.SetParentSafe(SingletonGeneric<GameManager>.Singleton.lockedPivot);
+                CurrentSelectedPlayer.PersonController.SwitchControllerType(ControllerType.Ground);
                 CurrentSelectedPlayer.transform.position = RaftClient.Raft.transform.position;
+            }
 
             base.Render(id);
         }

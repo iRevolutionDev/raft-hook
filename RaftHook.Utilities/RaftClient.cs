@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using RaftHook.Utilities.Models;
 using Steamworks;
 using UnityEngine;
@@ -41,6 +42,11 @@ namespace RaftHook.Utilities
         private static Dictionary<CSteamID, Network_Player> GetPlayers()
         {
             return Network.remoteUsers;
+        }
+
+        public static IEnumerable<Shark> GetSharks()
+        {
+            return Object.FindObjectsOfType<Shark>().ToList();
         }
     }
 }

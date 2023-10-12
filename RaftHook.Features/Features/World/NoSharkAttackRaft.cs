@@ -4,7 +4,7 @@ using RaftHook.Utilities;
 namespace RaftHook.Features.Features.World
 {
     [HarmonyPatch(typeof(Shark), "AttackRaftUpdate")]
-    internal class NoSharkAttackRaft
+    internal static class NoSharkAttackRaft
     {
         private static void Postfix(Shark __instance)
         {

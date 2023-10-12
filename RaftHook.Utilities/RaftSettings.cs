@@ -10,6 +10,7 @@
         public static bool NoThirst;
         public static bool NoHunger;
         public static bool NoFallDamage;
+        public static bool NoBuildRestrictions;
 
         //World
         public static bool NoShark;
