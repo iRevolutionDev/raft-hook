@@ -20,6 +20,8 @@ namespace RaftHook.UI.Views
             RaftSettings.NoFallDamage = GUILayout.Toggle(RaftSettings.NoFallDamage, "No Fall Damage");
             RaftSettings.NoBuildRestrictions =
                 GUILayout.Toggle(RaftSettings.NoBuildRestrictions, "No Build Restrictions");
+            RaftSettings.NoBuildResourceRestrictions =
+                GUILayout.Toggle(RaftSettings.NoBuildResourceRestrictions, "No Build Resource Restrictions");
             if (GUILayout.Button("Heal")) Stats.Heal();
             if (GUILayout.Button("Feed")) Stats.Feed();
             if (GUILayout.Button("Quench")) Stats.Quench();

@@ -324,6 +324,7 @@
         <Compile Include="Features\Miscellaneous\KillEntities.cs"/>
         <Compile Include="Features\Self\Armor.cs"/>
         <Compile Include="Features\Self\Durability.cs"/>
+        <Compile Include="Features\Self\NoBuildResourcesRestrictions.cs"/>
         <Compile Include="Features\Self\NoBuildRestrictions.cs"/>
         <Compile Include="Features\Self\NoFallDamage.cs"/>
         <Compile Include="Features\Self\NoHunger.cs"/>

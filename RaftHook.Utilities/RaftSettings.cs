@@ -11,6 +11,8 @@
         public static bool NoHunger;
         public static bool NoFallDamage;
         public static bool NoBuildRestrictions;
+        public static bool NoBuildResourceRestrictions;
+        public static bool UnlimitedOxygen;
 
         //World
         public static bool NoShark;
