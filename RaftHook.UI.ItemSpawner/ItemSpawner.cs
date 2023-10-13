@@ -233,41 +233,42 @@ namespace RaftHook.UI.ItemSpawner
                         currentEntity = networkEntity;
                     }
 
-                    if (currentEntity != null)
-                        try
+                    if (currentEntity == null) return;
+
+                    try
+                    {
+                        var currentEntityTransform = currentEntity.transform;
+                        ComponentManager<Network_Host>.Value.DamageEntity(currentEntity, currentEntityTransform,
+                            9999f, currentEntityTransform.position, Vector3.up, EntityType.Player);
+
+                        var npc = currentEntity.GetComponent<AI_NetworkBehaviour_NPC>();
+                        if (currentEntity.GetComponent<AI_NetworkBehaviour_NPC>()) Destroy(npc.gameObject);
+
+                        if (!currentEntity.GetComponent<AI_NetworkBehaviour_Boss_Varuna>()) return;
                         {
-                            var currentEntityTransform = currentEntity.transform;
-                            ComponentManager<Network_Host>.Value.DamageEntity(currentEntity, currentEntityTransform,
-                                9999f, currentEntityTransform.position, Vector3.up, EntityType.Player);
-
-                            var npc = currentEntity.GetComponent<AI_NetworkBehaviour_NPC>();
-                            if (currentEntity.GetComponent<AI_NetworkBehaviour_NPC>()) Destroy(npc.gameObject);
-
-                            if (!currentEntity.GetComponent<AI_NetworkBehaviour_Boss_Varuna>()) return;
-                            {
-                                var boss =
-                                    currentEntity.GetComponent<AI_NetworkBehaviour_Boss_Varuna>();
-                                Destroy(boss.gameObject);
-                            }
-
-                            if (!currentEntity.GetComponent<AI_NetworkBehaviour_HyenaBoss>()) return;
-                            {
-                                var boss =
-                                    currentEntity.GetComponent<AI_NetworkBehaviour_HyenaBoss>();
-                                Destroy(boss.gameObject);
-                            }
+                            var boss =
+                                currentEntity.GetComponent<AI_NetworkBehaviour_Boss_Varuna>();
+                            Destroy(boss.gameObject);
                         }
-                        catch
+
+                        if (!currentEntity.GetComponent<AI_NetworkBehaviour_HyenaBoss>()) return;
                         {
-                            MelonLogger.Msg("Failed to kill nearest entity!");
+                            var boss =
+                                currentEntity.GetComponent<AI_NetworkBehaviour_HyenaBoss>();
+                            Destroy(boss.gameObject);
                         }
+                    }
+                    catch
+                    {
+                        RaftClient.SendNotification("Failed to kill nearest entity!");
+                    }
                 });
 
             _menu.transform.Find("Background").Find("Menus").Find("Islands").Find("RemoveButton").GetComponent<Button>()
                 .onClick.AddListener(() =>
                 {
                     ComponentManager<ChunkManager>.Value.ClearAllChunkPoints();
-                    //FindObjectOfType<HNotify>().AddNotification(HNotify.NotificationType.normal, "Successfully cleared all landmarks!", 3, HNotify.CheckSprite);
+                    RaftClient.SendNotification("Successfully cleared all landmarks!");
                 });
 
             InitAnimalsTab();
@@ -277,7 +278,7 @@ namespace RaftHook.UI.ItemSpawner
             //menu.GetComponent<CanvasGroup>().interactable = false;
             _menu.GetComponent<CanvasGroup>().blocksRaycasts = false;
 
-            Debug.Log("ItemSpawner has been loaded!");
+            MelonLogger.Msg("ItemSpawner has been loaded!");
 
             InitGameItemsTab();
         }
@@ -413,21 +414,20 @@ namespace RaftHook.UI.ItemSpawner
             {
                 if (animal == AI_NetworkBehaviourType.None || animal == AI_NetworkBehaviourType.TEST) continue;
 
-                if (!currentlySupported.Contains(animal))
-                {
-                    var t = Instantiate(animalPrefab, content);
-                    t.name = animal.ToString();
+                if (currentlySupported.Contains(animal)) continue;
 
-                    var sprite = _asset.LoadAsset<Sprite>(animal.ToString());
-                    if (sprite != null) t.transform.Find("Icon").GetComponent<Image>().sprite = sprite;
+                var t = Instantiate(animalPrefab, content);
+                t.name = animal.ToString();
 
-                    if (animal == AI_NetworkBehaviourType.StoneBird_Caravan)
-                        t.transform.Find("TopBar").Find("Label").GetComponent<TextMeshProUGUI>().fontSize = 15f;
+                var sprite = _asset.LoadAsset<Sprite>(animal.ToString());
+                if (sprite != null) t.transform.Find("Icon").GetComponent<Image>().sprite = sprite;
 
-                    t.transform.Find("TopBar").Find("Label").GetComponent<TextMeshProUGUI>().text = animal.ToString();
-                    t.transform.Find("SpawnButton").GetComponent<Button>().onClick
-                        .AddListener(() => SpawnAnimal(animal));
-                }
+                if (animal == AI_NetworkBehaviourType.StoneBird_Caravan)
+                    t.transform.Find("TopBar").Find("Label").GetComponent<TextMeshProUGUI>().fontSize = 15f;
+
+                t.transform.Find("TopBar").Find("Label").GetComponent<TextMeshProUGUI>().text = animal.ToString();
+                t.transform.Find("SpawnButton").GetComponent<Button>().onClick
+                    .AddListener(() => SpawnAnimal(animal));
             }
         }
 
@@ -519,16 +519,18 @@ namespace RaftHook.UI.ItemSpawner
                     case ChunkPointType.Landmark_VarunaPoint:
                     case ChunkPointType.Landmark_Temperance:
                     case ChunkPointType.Landmark_Utopia:
+                        value = 200;
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(cpt), cpt, null);
                 }
 
                 ComponentManager<ChunkManager>.Value.AddChunkPointCheat(cpt, Raft.direction * value);
-                MelonLogger.Msg("Landmark successfully spawned!");
+                RaftClient.SendNotification("Successfully spawned landmark!");
             }
             else
             {
-                MelonLogger.Msg("This island is in the game but isn't fully implemented currently!");
+                RaftClient.SendNotification("This island is in the game but isn't fully implemented currently!");
             }
         }
 
@@ -562,7 +564,7 @@ namespace RaftHook.UI.ItemSpawner
                 }
                 else
                 {
-                    MelonLogger.Msg("This animal can only be spawned on an island!");
+                    RaftClient.SendNotification("This animal can only be spawned on an island!");
                 }
             }
             else
