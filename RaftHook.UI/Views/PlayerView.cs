@@ -23,6 +23,8 @@ namespace RaftHook.UI.Views
                 GUILayout.Toggle(RaftSettings.NoBuildRestrictions, "No Build Restrictions");
             RaftSettings.NoBuildResourceRestrictions =
                 GUILayout.Toggle(RaftSettings.NoBuildResourceRestrictions, "No Build Resource Restrictions");
+            RaftSettings.NoCraftingRestrictions =
+                GUILayout.Toggle(RaftSettings.NoCraftingRestrictions, "No Crafting Restrictions");
             if (GUILayout.Button("Heal")) Stats.Heal();
             if (GUILayout.Button("Feed")) Stats.Feed();
             if (GUILayout.Button("Quench")) Stats.Quench();

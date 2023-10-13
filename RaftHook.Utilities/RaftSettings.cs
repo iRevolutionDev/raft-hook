@@ -13,6 +13,7 @@
         public static bool NoBuildRestrictions;
         public static bool NoBuildResourceRestrictions;
         public static bool UnlimitedOxygen;
+        public static bool NoCraftingRestrictions;
 
         //World
         public static bool NoShark;
