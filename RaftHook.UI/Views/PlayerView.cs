@@ -18,6 +18,7 @@ namespace RaftHook.UI.Views
             RaftSettings.NoThirst = GUILayout.Toggle(RaftSettings.NoThirst, "No Thirst");
             RaftSettings.NoHunger = GUILayout.Toggle(RaftSettings.NoHunger, "No Hunger");
             RaftSettings.NoFallDamage = GUILayout.Toggle(RaftSettings.NoFallDamage, "No Fall Damage");
+            RaftSettings.UnlimitedOxygen = GUILayout.Toggle(RaftSettings.UnlimitedOxygen, "Unlimited Oxygen");
             RaftSettings.NoBuildRestrictions =
                 GUILayout.Toggle(RaftSettings.NoBuildRestrictions, "No Build Restrictions");
             RaftSettings.NoBuildResourceRestrictions =

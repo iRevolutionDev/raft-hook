@@ -331,6 +331,7 @@
         <Compile Include="Features\Self\NoThirst.cs"/>
         <Compile Include="Features\Self\Stats.cs"/>
         <Compile Include="Features\Self\UnlimitedHealth.cs"/>
+        <Compile Include="Features\Self\UnlimitedOxygen.cs" />
         <Compile Include="Features\Self\Unlockables.cs"/>
         <Compile Include="Features\Visuals\Esp.cs"/>
         <Compile Include="Features\World\NoShark.cs"/>

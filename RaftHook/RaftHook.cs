@@ -30,6 +30,7 @@ namespace RaftHook
             _gameObject.AddComponent<NoHunger>();
             _gameObject.AddComponent<NoThirst>();
             _gameObject.AddComponent<UnlimitedHealth>();
+            _gameObject.AddComponent<UnlimitedOxygen>();
             _gameObject.AddComponent<Esp>();
             _gameObject.AddComponent<FlyMode>();
 
