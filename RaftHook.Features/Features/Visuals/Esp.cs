@@ -138,8 +138,10 @@ namespace RaftHook.Features.Features.Visuals
                     var foot = player.Value.FeetPosition;
                     var footVector = _reiCamera.WorldToScreenPoint(foot);
 
-                    Render.DrawBox(new Vector2(headVector.x, Screen.height - headVector.y),
-                        footVector, 1f, Color.white);
+                    var headPosition = new Vector2(headVector.x, Screen.height - headVector.y);
+                    var footPosition = new Vector2(footVector.x, Screen.height - footVector.y);
+
+                    Render.DrawBox(headPosition, footPosition, 1f, Color.white, false);
                 }
             }
 
