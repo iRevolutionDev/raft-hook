@@ -21,6 +21,9 @@
         public static bool NoSharkAttackPlayer;
         public static bool NoSharkAttackRaft;
 
+        //Misc
+        public static bool SpoofDevCheats;
+
         // ESP
         public static bool EnableEsp;
         public static bool Players;

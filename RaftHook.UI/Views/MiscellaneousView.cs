@@ -16,6 +16,7 @@ namespace RaftHook.UI.Views
         protected override void Render(int id)
         {
             RaftSettings.Fly = GUILayout.Toggle(RaftSettings.Fly, "Fly [F1]");
+            RaftSettings.SpoofDevCheats = GUILayout.Toggle(RaftSettings.SpoofDevCheats, "Spoof Dev Cheats");
             if (GUILayout.Button("Force Anchor")) ForceAnchor.AddAnchor();
             if (GUILayout.Button("Unlock All")) Unlockables.UnlockAll();
             if (GUILayout.Button("Unlock Achievements")) Unlockables.UnlockAchievements();
