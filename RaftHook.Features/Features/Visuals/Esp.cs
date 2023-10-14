@@ -316,20 +316,20 @@ namespace RaftHook.Features.Features.Visuals
                         var num8 = Vector3.Distance(
                             SingletonGeneric<Network_Entity>.Singleton.Network.GetLocalPlayer().transform.position,
                             position);
-                        if (Render.IsOnScreen(vector8) && num8 < RaftSettings.FFriendlyAnimal &&
-                            _npcCheck.Contains(aiNetworkBehaviourAnimal3.behaviourType))
-                        {
-                            Render.DrawString(new Vector3(vector8.x, Screen.height - vector8.y),
-                                GetNPCNames(aiNetworkBehaviourAnimal3.name), Color.cyan, true, 12,
-                                FontStyle.Normal);
-                            Render.DrawString(new Vector3(vector8.x, Screen.height - vector8.y + 12f),
-                                Mathf.Round(num8) + "m", Color.yellow, true, 12, FontStyle.Normal);
-                        }
+                        
+                        if (!Render.IsOnScreen(vector8) || !(num8 < RaftSettings.FFriendlyAnimal) ||
+                            !_npcCheck.Contains(aiNetworkBehaviourAnimal3.behaviourType)) continue;
+                        
+                        Render.DrawString(new Vector3(vector8.x, Screen.height - vector8.y),
+                            GetNpcNames(aiNetworkBehaviourAnimal3.name), Color.cyan, true, 12,
+                            FontStyle.Normal);
+                        Render.DrawString(new Vector3(vector8.x, Screen.height - vector8.y + 12f),
+                            Mathf.Round(num8) + "m", Color.yellow, true, 12, FontStyle.Normal);
                     }
             }
         }
 
-        public static string GetTreasureNames(string pText)
+        private static string GetTreasureNames(string pText)
         {
             pText = pText.Replace("Pickup_Base_Treasure_Index0_Tier1(Clone)", "Buried Pile of Junk")
                 .Replace("Pickup_Base_Treasure_Index1_Tier2(Clone)", "Buried Briefcase")
@@ -343,7 +343,7 @@ namespace RaftHook.Features.Features.Visuals
                 .Replace(pText, string.Empty);
         }
 
-        public static string GetAnimalNames_Hostile(string pText)
+        private static string GetAnimalNames_Hostile(string pText)
         {
             pText = pText.Replace("AI_StoneBird(Clone)", "Screecher").Replace("AI_PufferFish(Clone)", "Poison Puffer")
                 .Replace("AI_Boar(Clone)", "Warthog")
@@ -368,7 +368,7 @@ namespace RaftHook.Features.Features.Visuals
                 .Replace(pText, string.Empty);
         }
 
-        public static string GetAnimalNames_Friendly(string pText)
+        private static string GetAnimalNames_Friendly(string pText)
         {
             pText = pText.Replace("AI_Llama(Clone)", "Llama").Replace("AI_Goat(Clone)", "Goat")
                 .Replace("AI_Chicken(Clone)", "Clucker")
@@ -382,7 +382,7 @@ namespace RaftHook.Features.Features.Visuals
                 .Replace(pText, string.Empty);
         }
 
-        public static string GetNPCNames(string pText)
+        private static string GetNpcNames(string pText)
         {
             pText = pText.Replace("AI_NPC_Female_Annisa(Clone)", "Annisa")
                 .Replace("AI_NPC_Female_Citra(Clone)", "Citra").Replace("AI_NPC_Female_Ika(Clone)", "Ika")
@@ -402,9 +402,8 @@ namespace RaftHook.Features.Features.Visuals
                     RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant)
                 .Replace(pText, string.Empty);
         }
-
-        // Token: 0x06000026 RID: 38 RVA: 0x00005C3C File Offset: 0x00003E3C
-        public static string GetIslandNames(string pText)
+        
+        private static string GetIslandNames(string pText)
         {
             pText = pText.Replace("15#Landmark_Raft#Floating raft", "Floating Raft")
                 .Replace("16#Landmark_Raft#Floating raft", "Floating Raft")
