@@ -10,4 +10,4 @@
 - Visual Studio 2022 or Rider
 
 # Credits
-- Item Spawner: https://www.raftmodding.com/mods/itemspawner
+- Item Spawner: [TeKGameR950](https://www.raftmodding.com/mods/itemspawner)
